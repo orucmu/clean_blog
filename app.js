@@ -1,4 +1,4 @@
-const express = requires('express')
+const express = require('express')
 
 const app = express();
 
@@ -6,8 +6,8 @@ app.get('/', (req, res) => {
 
     const blog = {
         id: 1,
-        name: "Photo Name",
-        description: "Photo description"
+        name: "Blog Title 4",
+        description: "Blog description"
     }
     res.send(blog)
 })
