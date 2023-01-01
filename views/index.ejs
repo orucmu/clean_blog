@@ -26,7 +26,7 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         <% for (let i=0; i<messages.length; i++) { %>
         <div class="post-preview">
-          <a href="post.html">
+          <a href="/post/<%= messages[i]._id %>">
             <h3 class="post-title"></h3>
             <h2 class="post-title">
               <%= messages[i].title %>

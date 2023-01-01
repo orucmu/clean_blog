@@ -25,8 +25,15 @@ app.get('/', async (req, res) => {
     })
 });
 
+app.get('/post/:id', async (req, res) => {
+    const post = await Message.findById(req.params.id);
+    res.render('post', {
+        post
+    })
+});
+
 app.get('/about', (req, res) => {
-    res.render('about')
+    res.render('about.ejs')
 });
 
 app.get('/add_post', (req, res) => {
