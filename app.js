@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override')
 const ejs = require('ejs');
+const fs = require('fs')
 const Message = require('./models/Message')
 const app = express();
 
@@ -17,7 +18,9 @@ app.set("view engine", "ejs")
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(methodOverride('_method'))
+app.use(methodOverride('_method', {
+    methods: ['POST', 'GET']
+}));
 
 //Routes
 app.get('/', async (req, res) => {
@@ -61,8 +64,12 @@ app.put('/post/:id', async (req, res) => {
     post.message = req.body.message;
     post.save();
     res.redirect(`/post/${req.params.id}`)
-})
+});
 
+app.delete('/post/:id', async (req, res) => {
+    await Message.findByIdAndRemove(req.params.id);
+    res.redirect('/');
+});
 const port = 3000;
 
 app.listen(port, () => {
