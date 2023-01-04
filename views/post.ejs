@@ -25,8 +25,7 @@
         const dateString = formatter.format(post.dateCreated);
       %>
       <%= dateString %>
-    </p></span
-              >
+    </p></span>
             </div>
           </div>
         </div>
@@ -39,21 +38,22 @@
         </div>
       </div>
     </article>
-    <div class="col-xl-4 col-lg-5">
+    <div class="col-lg-5">
                 <!-- Share box -->
                 <div class="tm-bg-gray tm-share-box">
-                  <div class="text-center">
+                  <div class="text-left">
                     <a href="/post/edit/<%=post._id %>"
-                      class="btn btn-primary p-0 mb-4 tm-btn-animate tm-btn-download tm-icon-download"
+                      class="btn btn-rounded btn-primary"
                     >
                       <span>Update Details</span>
-                  </a>
+                  </a> 
                   </div>
-                  <div class="text-center">
+                  <br>
+                  <div class="text-left">
                     <a href="/post/<%= post._id %>?_method=DELETE"
-                      class="btn btn-danger p-0 tm-btn-animate tm-btn-download tm-icon-download" onclick="return confirm('Are you sure?')"
+                      class="btn btn-danger" onclick="return confirm('Are you sure?')"
                     >
-                      <span>Delete Photo</span>
+                      <span>Delete Post</span>
                     </a>
                   </div>
                 </div>

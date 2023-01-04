@@ -5,6 +5,8 @@ const ejs = require('ejs');
 const fs = require('fs')
 const Message = require('./models/Message')
 const app = express();
+const postController = require('./controllers/postController')
+const pageController = require('./controllers/pageController')
 
 mongoose.set('strictQuery', false);
 
@@ -23,53 +25,17 @@ app.use(methodOverride('_method', {
 }));
 
 //Routes
-app.get('/', async (req, res) => {
-    const messages = await Message.find({}).sort('-dateCreated')
-    res.render('index', {
-        messages
-    })
-});
+app.get('/', postController.getAllPosts);
+app.get('/post/:id', postController.getPost);
+app.post('/messages', postController.createPost);
+app.put('/post/:id', postController.updatePost);
+app.delete('/post/:id', postController.deletePhoto);
 
-app.get('/post/:id', async (req, res) => {
-    const post = await Message.findById(req.params.id);
-    res.render('post', {
-        post
-    })
-});
+app.get('/about', pageController.getAboutPage);
+app.get('/add_post', pageController.getAddPage);
+app.get('/post/edit/:id', pageController.getEditPage);
 
-app.get('/about', (req, res) => {
-    res.render('about.ejs')
-});
 
-app.get('/add_post', (req, res) => {
-    res.render('add_post')
-});
-
-app.post('/messages', async (req, res) => {
-    await Message.create(req.body)
-    res.redirect('/')
-});
-
-app.get('/post/edit/:id', async (req, res) => {
-    const post = await Message.findOne({ _id: req.params.id });
-    res.render('edit', {
-        post
-    })
-});
-
-app.put('/post/:id', async (req, res) => {
-    const post = await Message.findOne({ _id: req.params.id })
-    post.name = req.body.name
-    post.title = req.body.title;
-    post.message = req.body.message;
-    post.save();
-    res.redirect(`/post/${req.params.id}`)
-});
-
-app.delete('/post/:id', async (req, res) => {
-    await Message.findByIdAndRemove(req.params.id);
-    res.redirect('/');
-});
 const port = 3000;
 
 app.listen(port, () => {
